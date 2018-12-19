@@ -3,22 +3,29 @@ import { View, Text,Image, TextInput, Alert,StyleSheet,Dimensions,Button as Reac
 import { StackActions, NavigationActions } from 'react-navigation';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { Button } from 'react-native-elements';
-
+import db from '../Config/Firebase/Firebase';
+import {Modal, TouchableHighlight} from 'react-native';
+import ModalAddCompany from '../Components/Modal/Modal';
 
 export default class Login extends React.Component {
-
     state = {
+        modalVisible: false,
     }
 
-   
+    setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+      }
 
     render() {
+        const {modalVisible} = this.state;
         return (
             <View style={{ borderColor: 'blue', flex: 1, alignItems: "center", justifyContent: "flex-end",paddingBottom: 50 }}>
 
+
+<ModalAddCompany modalVisible={modalVisible} setModalVisible={(visible) => {this.setModalVisible(visible)}} />
         <ReactButton title="Add a company +"
         onPress={() => {
-          Alert.alert("working on it");
+                        this.setState({modalVisible:true})
         }}
         ></ReactButton>
                 <Button
@@ -26,16 +33,18 @@ export default class Login extends React.Component {
                     buttonStyle={styles.loginButton}
                     onPress={() => {
                         // this.logIn();
-                        this.props.navigation.navigate("Home");
+                        // this.props.navigation.navigate("Home");
                         // Alert.alert(this.state.text) 
+                        this.setState({modalVisible:true})
                         }} />
                          <Button
                     title="Normal User"
                     buttonStyle={styles.loginButton}
                     onPress={() => {
                         // this.logIn();
-                        this.props.navigation.navigate("Home");
+                        // this.props.navigation.navigate("Home");
                         // Alert.alert(this.state.text) 
+                        console.log(db);
                         }} />
 
             </View>
